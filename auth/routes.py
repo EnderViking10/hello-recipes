@@ -16,7 +16,7 @@ def login():
         if user is None and User.check_password(form.password.data):
             return flask.redirect(flask.url_for('auth.login'))
         login_user(user)
-        return flask.redirect(flask.url_for('main.recipes'))
+        return flask.redirect(flask.url_for('main.all_recipes'))
 
     return render_template('login_page.html', form=form)
 
