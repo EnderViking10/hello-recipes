@@ -1,6 +1,7 @@
 import os
 
 from flask import render_template, redirect, url_for, current_app
+from flask_login import login_required
 from werkzeug.utils import secure_filename
 
 from app import db
@@ -14,23 +15,22 @@ def index() -> render_template:
     return render_template('index.html')
 
 
-# at the top of your routes.py or your main Python file
-from flask import render_template
-
-
 @bp.route("/recipes")
+@login_required
 def all_recipes():
     recipes = Recipe.query.all()
     return render_template('recipes.html', recipes=recipes)
 
 
 @bp.route('/recipe/<int:id>')
+@login_required
 def recipe(id):
     specific_recipe = Recipe.query.get_or_404(id)
     return render_template('recipe.html', recipe=specific_recipe)
 
 
 @bp.route('/new_recipe', methods=['GET', 'POST'])
+@login_required
 def new_recipe():
     form = RecipeForm()
     if form.validate_on_submit():
