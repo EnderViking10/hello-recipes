@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% block content %}
+    <div class="container">
+        <h2>{{ recipe.title }}</h2>
+        <p>{{ recipe.description }}</p>
+
+        <!-- Button for ingredients toggle section -->
+        <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#ingredientsCollapse"
+                aria-expanded="false" aria-controls="ingredientsCollapse">
+            Ingredients
+        </button>
+
+        <!-- Ingredients Content -->
+        <div class="collapse" id="ingredientsCollapse">
+            <div class="card card-body">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th scope="col">Ingredient</th>
+                        <th scope="col">Measurement</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for ingredient in recipe.ingredients %}
+                        <tr>
+                            <td>{{ ingredient.name }}</td>
+                            <td>{{ ingredient.measurement }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Button for instructions toggle section -->
+        <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#instructionsCollapse"
+                aria-expanded="false" aria-controls="instructionsCollapse">
+            Instructions
+        </button>
+
+        <!-- Instructions Content -->
+        <div class="collapse" id="instructionsCollapse">
+            <div class="card card-body">
+                <ol>
+                    {% for instruction in recipe.instructions %}
+                        <li>{{ instruction.step }}</li>
+                    {% endfor %}
+                </ol>
+            </div>
+        </div>
+
+    </div>
+{% endblock %}

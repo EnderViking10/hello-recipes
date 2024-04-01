@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block content %}
+    <div class="container">
+        <h1 class="my-4">All Recipes</h1>
+        <div class="row">
+            {% for recipe in recipes %}
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="card">
+                        {% if recipes.image %}
+                            <img src="{{ url_for('static', filename='images/' + recipe.image) }}" class="card-img-top"
+                                 alt="{{ recipe.title }}">
+                        {% endif %}
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                <a href="{{ url_for('main.recipe', id=recipe.id) }}">{{ recipe.title }}</a>
+                            </h5>
+                            <p class="card-text">{{ recipe.description }}</p>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
