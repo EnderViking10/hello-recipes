@@ -7,7 +7,7 @@ from werkzeug.utils import secure_filename
 from app import db
 from main import bp
 from main.forms import RecipeForm
-from models import Recipe
+from models import Recipe, Instruction, Ingredient
 
 
 @bp.route('/')
@@ -39,7 +39,18 @@ def new_recipe():
             new_recipe = Recipe(title=form.title.data, description=form.description.data, image_file=image_filename)
         else:
             new_recipe = Recipe(title=form.title.data, description=form.description.data)
-        db.session.add(new_recipe)
+
+        ingredients = form.ingredients.data.split('\n')  # Split the textarea content by new line
+        for ingredient in ingredients:
+            name, measurement = ingredient.split(' ')  # Assuming name and measurement are divided by space
+            new_ingredient = Ingredient(name=name, measurement=measurement, recipe=new_recipe)
+            db.session.add(new_ingredient)
+
+        instructions = form.instructions.data.split('\n')  # Split the textarea content by new line
+        for instruction in instructions:
+            new_instruction = Instruction(step=instruction, recipe=new_recipe)
+            db.session.add(new_instruction)
+
         db.session.commit()
 
         return redirect(url_for('main.all_recipes'))
