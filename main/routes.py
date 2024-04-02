@@ -42,7 +42,7 @@ def new_recipe():
 
         ingredients = form.ingredients.data.split('\n')  # Split the textarea content by new line
         for ingredient in ingredients:
-            name, measurement = ingredient.split(' ')  # Assuming name and measurement are divided by space
+            name, measurement = ingredient.split(':')  # Assuming name and measurement are divided by space
             new_ingredient = Ingredient(name=name, measurement=measurement, recipe=new_recipe)
             db.session.add(new_ingredient)
 
