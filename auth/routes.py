@@ -26,6 +26,7 @@ def register():
     form = RegisterForm()
     if form.validate_on_submit():
         if form.password.data != form.confirm_password.data:
+            print(form.password.data, form.confirm_password.data)
             flash('Passwords do not match')
             return redirect(url_for('auth.register'))
         User.add_user(form.username.data, form.password.data)
