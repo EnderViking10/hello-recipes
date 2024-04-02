@@ -26,6 +26,7 @@ class User(UserMixin, db.Model):
         user = User()
         user.username = username
         user.set_password(password)
+        user.set_admin(False)
         db.session.add(user)
         db.session.commit()
 
