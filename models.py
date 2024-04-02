@@ -10,6 +10,7 @@ class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(64), index=True, unique=True, nullable=False)
     password_hash = db.Column(db.String(64), nullable=False)
+    admin = db.Column(db.Boolean)
 
     def __repr__(self) -> str:
         return f'<User {self.username}>'

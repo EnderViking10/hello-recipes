@@ -22,14 +22,16 @@ def login():
 
 
 @bp.route('/register', methods=['GET', 'POST'])
-@login_required
 def register():
     form = RegisterForm()
     if form.validate_on_submit():
-        User.add_user(flask.request.form['username'])
+        if form.password.data != form.confirm_password.data:
+            flash('Passwords do not match')
+            return redirect(url_for('auth.register'))
+        User.add_user(form.username.data, form.password.data)
 
         flash('Congratulations you have successfully registered a user!')
-        return redirect(url_for('main.index'))
+        return redirect(url_for('auth.login'))
     return render_template('register.html', form=form)
 
 

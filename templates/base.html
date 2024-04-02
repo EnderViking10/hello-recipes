@@ -14,15 +14,17 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav mr-auto">
-            <li class="nav-item"><a class="nav-link" href="/new_recipe">New Recipe</a></li>
+            {% if current_user.is_authenticated and current_user.admin %}
+                <li class="nav-item"><a class="nav-link" href="/new_recipe">New Recipe</a></li>
+            {% endif %}
             <li class="nav-item"><a class="nav-link" href="/recipes">Recipes</a></li>
         </ul>
         <ul class="navbar-nav ml-auto">
             {% if current_user.is_authenticated %}
                 <li class="nav-item"><a class="nav-link" href="/auth/logout">Logout</a></li>
-                <li class="nav-item"><a class="nav-link" href="/auth/register">Register</a></li>
             {% else %}
                 <li class="nav-item"><a class="nav-link" href="/auth/login">Login</a></li>
+                <li class="nav-item"><a class="nav-link" href="/auth/register">Register</a></li>
             {% endif %}
         </ul>
     </div>

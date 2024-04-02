@@ -16,14 +16,12 @@ def index() -> render_template:
 
 
 @bp.route("/recipes")
-@login_required
 def all_recipes():
     recipes = Recipe.query.all()
     return render_template('recipes.html', recipes=recipes)
 
 
 @bp.route('/recipe/<int:id>')
-@login_required
 def recipe(id):
     specific_recipe = Recipe.query.get_or_404(id)
     return render_template('recipe.html', recipe=specific_recipe)
