@@ -13,7 +13,7 @@ def login():
     if form.validate_on_submit():
         user = User.get_by_username(form.username.data)
 
-        if user is None or User.check_password(form.password.data):
+        if user is None or !user.check_password(form.password.data):
             return flask.redirect(flask.url_for('auth.login'))
         login_user(user)
         return flask.redirect(flask.url_for('main.all_recipes'))
